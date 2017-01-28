@@ -1,10 +1,6 @@
 //newly added
 using System;  //old
-using System.Collections.Generic;  
-using System.Linq;  
-using System.Net;  
 using System.Threading.Tasks;  //old
-using System.Web;
 
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
@@ -18,36 +14,6 @@ public class BasicLuisDialog : LuisDialog<object>
 {
     public BasicLuisDialog() : base(new LuisService(new LuisModelAttribute(Utils.GetAppSetting("LuisAppId"), Utils.GetAppSetting("LuisAPIKey"))))
     {}
-    
-    private async Task<string> GetStock(string StockSymbol)  
-{  
-    double? dblStockValue = await YahooBot.GetStockRateAsync(StockSymbol);  
-    if(dblStockValue==null)  
-    {  
-        return string.Format("This \"{0}\" is not an valid stock symbol",StockSymbol);  
-    }  
-    else  
-    {  
-        return string.Format("Stock Price of {0} is {1}",StockSymbol,dblStockValue);  
-    }  
-}  
-private static async Task<StockPrice> GetEntityFromLUIS(string Query)  
-{  
-    Query = Uri.EscapeDataString(Query);  
-    StockPrice Data = new StockPrice();  
-    using (HttpClient client=new HttpClient())  
-    {  
-        string RequestURI = "https://api.projectoxford.ai/luis/v1/application?id=7f626790-38d6-4143-9d46-fe85c56a9016&subscription-key=09f80de609fa4698ab4fe5249321d165&q=" + Query;  
-        HttpResponseMessage msg = await client.GetAsync(RequestURI);  
-  
-        if (msg.IsSuccessStatusCode)  
-        {  
-            var JsonDataResponse = await msg.Content.ReadAsStringAsync();  
-            Data = JsonConvert.DeserializeObject<StockLUIS>(JsonDataResponse);  
-        }  
-    }  
-    return Data;  
-}  
     // Go to https://luis.ai and create a new intent, then train/publish your luis app.
     // Finally replace "MyIntent" with the name of your newly created intent in the following handler
     [LuisIntent("StockPrice")]
@@ -94,36 +60,3 @@ private static async Task<StockPrice> GetEntityFromLUIS(string Query)
 
 //here ends jason template
 //starts yahoobot
-public class YahooBot  
-    {  
-        public static async Task<double?> GetStockRateAsync(string StockSymbol)  
-        {  
-            try  
-            {  
-                string ServiceURL = $"http://finance.yahoo.com/d/quotes.csv?s={StockSymbol}&f=nxsac";  
-                string ResultInCSV;  
-                using (WebClient client = new WebClient())  
-                {  
-                    ResultInCSV = await client.DownloadStringTaskAsync(ServiceURL).ConfigureAwait(false);  
-                }  
-                var FirstLine = ResultInCSV.Split('\n')[0];  
-                var Price = FirstLine.Split(',')[1];  
-                if (Price != null && Price.Length >= 0)  
-                {  
-                    double result;  
-                    if (double.TryParse(Price, out result))  
-                    {  
-                        return result;  
-                    }  
-                }  
-                return null;  
-            }  
-            catch (WebException ex)  
-            {  
-                //handle your exception here  
-                throw ex;  
-            }  
-        }  
-    }  
-
- 
