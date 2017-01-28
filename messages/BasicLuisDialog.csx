@@ -25,7 +25,7 @@ public class BasicLuisDialog : LuisDialog<object>
      [LuisIntent("Pleasentries")]
     public async Task HiIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"Hi.Hope you are having a great day"); //
+        await context.PostAsync($"Hi.Hope you are having a great day.What can I do for you today?"); //
         context.Wait(MessageReceived);
     }
     [LuisIntent("AddNewStock")]
@@ -36,7 +36,7 @@ public class BasicLuisDialog : LuisDialog<object>
             if (result.TryFindEntity("Equity", out STOCK))
             {
                 STOCK.Type = "Destination";
-                        await context.PostAsync($"Stock added. Your entity is {STOCK.Entity}"); 
+                        await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile."); 
 
             }
         context.Wait(MessageReceived);
@@ -44,13 +44,20 @@ public class BasicLuisDialog : LuisDialog<object>
     [LuisIntent("SellStock")]
     public async Task SellStockIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"Stock sell"); //
+       EntityRecommendation STOCK;
+
+            if (result.TryFindEntity("Equity", out STOCK))
+            {
+                STOCK.Type = "Destination";
+                        await context.PostAsync($"Stock being sold....\n{STOCK.Entity} shares removed from profile."); 
+
+            }
         context.Wait(MessageReceived);
     }
     [LuisIntent("None")]
     public async Task NoneIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"You have reached the none intent. You said: {result.Query}"); //
+        await context.PostAsync($"I didnt got you.Please explain clearly."); //
         context.Wait(MessageReceived);
     }
 
