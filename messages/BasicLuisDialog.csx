@@ -18,6 +18,36 @@ public class BasicLuisDialog : LuisDialog<object>
 {
     public BasicLuisDialog() : base(new LuisService(new LuisModelAttribute(Utils.GetAppSetting("LuisAppId"), Utils.GetAppSetting("LuisAPIKey"))))
     {}
+    
+    private async Task<string> GetStock(string StockSymbol)  
+{  
+    double? dblStockValue = await YahooBot.GetStockRateAsync(StockSymbol);  
+    if(dblStockValue==null)  
+    {  
+        return string.Format("This \"{0}\" is not an valid stock symbol",StockSymbol);  
+    }  
+    else  
+    {  
+        return string.Format("Stock Price of {0} is {1}",StockSymbol,dblStockValue);  
+    }  
+}  
+private static async Task<StockLUIS> GetEntityFromLUIS(string Query)  
+{  
+    Query = Uri.EscapeDataString(Query);  
+    StockLUIS Data = new StockLUIS();  
+    using (HttpClient client=new HttpClient())  
+    {  
+        string RequestURI = "https://api.projectoxford.ai/luis/v1/application?id=7f626790-38d6-4143-9d46-fe85c56a9016&subscription-key=09f80de609fa4698ab4fe5249321d165&q=" + Query;  
+        HttpResponseMessage msg = await client.GetAsync(RequestURI);  
+  
+        if (msg.IsSuccessStatusCode)  
+        {  
+            var JsonDataResponse = await msg.Content.ReadAsStringAsync();  
+            Data = JsonConvert.DeserializeObject<StockLUIS>(JsonDataResponse);  
+        }  
+    }  
+    return Data;  
+}  
     // Go to https://luis.ai and create a new intent, then train/publish your luis app.
     // Finally replace "MyIntent" with the name of your newly created intent in the following handler
     [LuisIntent("StockPrice")]
@@ -115,66 +145,5 @@ public class YahooBot
             }  
         }  
     }  
-private async Task<string> GetStock(string StockSymbol)  
-{  
-    double? dblStockValue = await YahooBot.GetStockRateAsync(StockSymbol);  
-    if(dblStockValue==null)  
-    {  
-        return string.Format("This \"{0}\" is not an valid stock symbol",StockSymbol);  
-    }  
-    else  
-    {  
-        return string.Format("Stock Price of {0} is {1}",StockSymbol,dblStockValue);  
-    }  
-}  
-private static async Task<StockLUIS> GetEntityFromLUIS(string Query)  
-{  
-    Query = Uri.EscapeDataString(Query);  
-    StockLUIS Data = new StockLUIS();  
-    using (HttpClient client=new HttpClient())  
-    {  
-        string RequestURI = "https://api.projectoxford.ai/luis/v1/application?id=7f626790-38d6-4143-9d46-fe85c56a9016&subscription-key=09f80de609fa4698ab4fe5249321d165&q=" + Query;  
-        HttpResponseMessage msg = await client.GetAsync(RequestURI);  
-  
-        if (msg.IsSuccessStatusCode)  
-        {  
-            var JsonDataResponse = await msg.Content.ReadAsStringAsync();  
-            Data = JsonConvert.DeserializeObject<StockLUIS>(JsonDataResponse);  
-        }  
-    }  
-    return Data;  
-}  
-public async Task<Message> Post([FromBody]Message message)  
-{  
-    if (message.Type == "Message")  
-    {  
-        string StockRateString;  
-        StockLUIS StLUIS = await GetEntityFromLUIS(message.Text);  
-        if(StLUIS.intents.Count()>0)  
-        {  
-            switch(StLUIS.intents[0].intent)  
-            {  
-                case "StockPrice":  
-                    StockRateString = await GetStock(StLUIS.entities[0].entity);  
-                    break;  
-                case "StockPrice2":  
-                    StockRateString = await GetStock(StLUIS.entities[0].entity);  
-                    break;  
-                default:  
-                    StockRateString = "Sorry, I am not getting you...";  
-                    break;  
-            }  
-        }  
-        else  
-        {  
-            StockRateString = "Sorry, I am not getting you...";  
-        }  
-  
-        // return our reply to the user  
-        return message.CreateReplyMessage(StockRateString);  
-    }  
-    else  
-    {  
-        return HandleSystemMessage(message);  
-    }  
-}  
+
+ 
