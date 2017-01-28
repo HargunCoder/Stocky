@@ -32,6 +32,12 @@ public class BasicLuisDialog : LuisDialog<object>
         await context.PostAsync($"Stock added"); //
         context.Wait(MessageReceived);
     }
+    [LuisIntent("SellStock")]
+    public async Task HiIntent(IDialogContext context, LuisResult result)
+    {
+        await context.PostAsync($"Stock sell"); //
+        context.Wait(MessageReceived);
+    }
     [LuisIntent("None")]
     public async Task NoneIntent(IDialogContext context, LuisResult result)
     {
