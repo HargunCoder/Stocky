@@ -29,7 +29,7 @@ public class BasicLuisDialog : LuisDialog<object>
     [LuisIntent("AddNewStock")]
     public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"Stock added.Your entity is {result.Entity}"); //
+        await context.PostAsync($"Stock added.Your entity is {result.entity}"); //
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
