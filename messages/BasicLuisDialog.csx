@@ -17,7 +17,7 @@ public class BasicLuisDialog : LuisDialog<object>
     [LuisIntent("StockPrice")]
     public async Task StockIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"Hi.You want info of stocks"); //
+        await context.PostAsync($"Hi.You want info of stocks. "); //
         context.Wait(MessageReceived);
     }
      [LuisIntent("Pleasentries")]
@@ -29,7 +29,7 @@ public class BasicLuisDialog : LuisDialog<object>
     [LuisIntent("AddNewStock")]
     public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"Stock added"); //
+        await context.PostAsync($"Stock added.Your entity is {result.entities}"); //
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
