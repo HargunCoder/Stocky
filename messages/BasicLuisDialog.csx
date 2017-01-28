@@ -20,7 +20,39 @@ public class BasicLuisDialog : LuisDialog<object>
     public async Task StockIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"Hi.You want info of stocks. "); //
+          EntityRecommendation STOCK;
+
+            if (result.TryFindEntity("Equity", out STOCK))
+            {        public static async Task<double?> GetStockRateAsync(string STOCK)  
+        {  
+            try  
+            {  
+                string ServiceURL = $"http://finance.yahoo.com/d/quotes.csv?s={StockSymbol}&f=sl1d1nd";  
+                string ResultInCSV;  
+                using (WebClient client = new WebClient())  
+                {  
+                    ResultInCSV = await client.DownloadStringTaskAsync(ServiceURL).ConfigureAwait(false);  
+                }  
+                var FirstLine = ResultInCSV.Split('\n')[0];  
+                var Price = FirstLine.Split(',')[1];  
+                if (Price != null && Price.Length >= 0)  
+                {  
+                    double result;  
+                    if (double.TryParse(Price, out result))  
+                    {  
+                        return result;  
+                    }  
+                }  
+                return null;  
+            }  
+            catch (WebException ex)  
+            {  
+                //handle your exception here  
+                throw ex;  
+            }  
+        }
         context.Wait(MessageReceived);
+    }
     }
      [LuisIntent("Pleasentries")]
     public async Task HiIntent(IDialogContext context, LuisResult result)
