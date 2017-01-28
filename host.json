@@ -1,4 +1,4 @@
-{ 
+
 public class StockLuis
 {
     public string query{ get; set; }
@@ -20,4 +20,4 @@ public class Entity
     public int endIndex { get; set; }
     public float score { get; set; }
 }
-}
+
