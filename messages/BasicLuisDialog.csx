@@ -28,8 +28,7 @@ public class BasicLuisDialog : LuisDialog<object>
     }
     [LuisIntent("AddNewStock")]
     public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
-    {
-        await context.PostAsync($"Stock added.Your entity is ."); 
+    { 
          EntityRecommendation STOCK;
 
             if (result.TryFindEntity("Equity", out STOCK))
