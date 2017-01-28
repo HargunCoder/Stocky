@@ -32,7 +32,7 @@ public class BasicLuisDialog : LuisDialog<object>
         await context.PostAsync($"Stock added.Your entity is ."); 
          EntityRecommendation STOCK;
 
-            if (result.TryFindEntity(EntityGeographyCity, out STOCK))
+            if (result.TryFindEntity("Equity", out STOCK))
             {
                 STOCK.Type = "Destination";
                         await context.PostAsync($"Stock added.Your entity is" + STOCK); 
