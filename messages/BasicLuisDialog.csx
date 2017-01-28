@@ -35,7 +35,7 @@ public class BasicLuisDialog : LuisDialog<object>
             if (result.TryFindEntity("Equity", out STOCK))
             {
                 STOCK.Type = "Destination";
-                        await context.PostAsync($"Stock added.Your entity is {STOCK.Entity}"); 
+                        await context.PostAsync($"Stock added. Your entity is {STOCK.Entity}"); 
 
             }
         context.Wait(MessageReceived);
