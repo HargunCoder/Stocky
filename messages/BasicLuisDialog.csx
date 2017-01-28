@@ -31,10 +31,10 @@ public class BasicLuisDialog : LuisDialog<object>
         return string.Format("Stock Price of {0} is {1}",StockSymbol,dblStockValue);  
     }  
 }  
-private static async Task<StockLUIS> GetEntityFromLUIS(string Query)  
+private static async Task<StockPrice> GetEntityFromLUIS(string Query)  
 {  
     Query = Uri.EscapeDataString(Query);  
-    StockLUIS Data = new StockLUIS();  
+    StockPrice Data = new StockPrice();  
     using (HttpClient client=new HttpClient())  
     {  
         string RequestURI = "https://api.projectoxford.ai/luis/v1/application?id=7f626790-38d6-4143-9d46-fe85c56a9016&subscription-key=09f80de609fa4698ab4fe5249321d165&q=" + Query;  
