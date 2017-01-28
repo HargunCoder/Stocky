@@ -1,5 +1,10 @@
-using System;
-using System.Threading.Tasks;
+//newly added
+using System;  //old
+using System.Collections.Generic;  
+using System.Linq;  
+using System.Net;  
+using System.Threading.Tasks;  //old
+using System.Web;
 
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
