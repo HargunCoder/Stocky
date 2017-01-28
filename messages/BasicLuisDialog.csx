@@ -27,13 +27,13 @@ public class BasicLuisDialog : LuisDialog<object>
         context.Wait(MessageReceived);
     }
     [LuisIntent("AddNewStock")]
-    public async Task HiIntent(IDialogContext context, LuisResult result)
+    public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"Stock added"); //
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
-    public async Task HiIntent(IDialogContext context, LuisResult result)
+    public async Task SellStockIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"Stock sell"); //
         context.Wait(MessageReceived);
