@@ -17,13 +17,19 @@ public class BasicLuisDialog : LuisDialog<object>
     [LuisIntent("StockPrice")]
     public async Task StockIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"Hi.Hope you are having a great day"); //
+        await context.PostAsync($"Hi.You want info of stocks"); //
         context.Wait(MessageReceived);
     }
      [LuisIntent("Pleasentries")]
     public async Task HiIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"Hi.Hope you are having a great day"); //
+        context.Wait(MessageReceived);
+    }
+    [LuisIntent("AddNewStock")]
+    public async Task HiIntent(IDialogContext context, LuisResult result)
+    {
+        await context.PostAsync($"Stock added"); //
         context.Wait(MessageReceived);
     }
     [LuisIntent("None")]
