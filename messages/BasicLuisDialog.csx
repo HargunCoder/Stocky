@@ -1,6 +1,10 @@
 //newly added
-using System;  //old
-using System.Threading.Tasks;  //old
+using System;  
+using System.Collections.Generic;  
+using System.Linq;  
+using System.Net;  
+using System.Threading.Tasks;  
+using System.Web; 
 
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
@@ -23,28 +27,29 @@ public class BasicLuisDialog : LuisDialog<object>
           EntityRecommendation STOCK;
 
             if (result.TryFindEntity("Equity", out STOCK))
-            {        public static async Task<double?> GetStockRateAsync(string STOCK)  
-        {  
-            try  
-            {  
-                string ServiceURL = $"http://finance.yahoo.com/d/quotes.csv?s={StockSymbol}&f=sl1d1nd";  
-                string ResultInCSV;  
-                using (WebClient client = new WebClient())  
-                {  
-                    ResultInCSV = await client.DownloadStringTaskAsync(ServiceURL).ConfigureAwait(false);  
-                }  
-                var FirstLine = ResultInCSV.Split('\n')[0];  
-                var Price = FirstLine.Split(',')[1];  
-                if (Price != null && Price.Length >= 0)  
-                {  
-                    double result;  
-                    if (double.TryParse(Price, out result))  
+            {
+              public static async Task<string?> GetStockRateAsync(string STOCK)  
                     {  
-                        return result;  
-                    }  
-                }  
-                return null;  
-            }  
+                         try  
+                             {  
+                                  string ServiceURL = $"http://finance.yahoo.com/d/quotes.csv?s={StockSymbol}&f=sl1d1nd";  
+                                   string ResultInCSV;  
+                                    using (WebClient client = new WebClient())  
+                                     {  
+                                        ResultInCSV = await client.DownloadStringTaskAsync(ServiceURL).ConfigureAwait(false);  
+                                     }  
+                                  var FirstLine = ResultInCSV.Split('\n')[0];  
+                                  var Price = FirstLine.Split(',')[1];  
+                                   if (Price != null && Price.Length >= 0)  
+                                {  
+                                    double result;  
+                                    if (double.TryParse(Price, out result))  
+                                         {  
+                                            return result;  
+                                          }  
+                                }  
+                              return null;  
+                               }  
             catch (WebException ex)  
             {  
                 //handle your exception here  
@@ -54,6 +59,7 @@ public class BasicLuisDialog : LuisDialog<object>
         context.Wait(MessageReceived);
     }
     }
+    
      [LuisIntent("Pleasentries")]
     public async Task HiIntent(IDialogContext context, LuisResult result)
     {
