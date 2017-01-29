@@ -54,7 +54,7 @@ public class BasicLuisDialog : LuisDialog<object>
                 throw ex;  
             }  
         }
-        context.Wait(MessageReceived);
+        context.Wait(MessageReceivedAsync);
     }
     }
     
@@ -62,7 +62,7 @@ public class BasicLuisDialog : LuisDialog<object>
     public async Task HiIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"Hi.Hope you are having a great day.What can I do for you today?"); //
-        context.Wait(MessageReceived);
+        context.Wait(MessageReceivedAsync);
     }
     [LuisIntent("AddNewStock")]
     public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
@@ -75,7 +75,7 @@ public class BasicLuisDialog : LuisDialog<object>
                         await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile."); 
 
             }
-        context.Wait(MessageReceived);
+        context.Wait(MessageReceivedAsync);
     }
     [LuisIntent("SellStock")]
     public async Task SellStockIntent(IDialogContext context, LuisResult result)
@@ -88,13 +88,13 @@ public class BasicLuisDialog : LuisDialog<object>
                         await context.PostAsync($"Stock being sold....\n{STOCK.Entity} shares removed from profile."); 
 
             }
-        context.Wait(MessageReceived);
+        context.Wait(MessageReceivedAsync);
     }
     [LuisIntent("None")]
     public async Task NoneIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"I didnt got you.Please explain clearly."); //
-        context.Wait(MessageReceived);
+        context.Wait(MessageReceivedAsync);
     }
 
 }
