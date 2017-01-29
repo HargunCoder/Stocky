@@ -48,7 +48,7 @@ internal int n = 0;
                         await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile."); 
 
             }
-             for (int i = 0;i <= n;i++)
+          /*   for (int i = 0;i <= n;i++)
  {
  EntityRecommendation STOCK;
 
@@ -69,7 +69,7 @@ internal int n = 0;
 	companyNames[n] = entityName;
 	n++;
  }
- }
+ }*/
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
