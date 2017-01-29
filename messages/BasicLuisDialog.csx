@@ -19,6 +19,7 @@ public class BasicLuisDialog : LuisDialog<object>
 internal string[] companyNames = {""};
 internal int[] nshares = new int[]{};
 internal int n = 0;
+string stockname;
     public BasicLuisDialog() : base(new LuisService(new LuisModelAttribute(Utils.GetAppSetting("LuisAppId"), Utils.GetAppSetting("LuisAPIKey"))))
     {}
     // Go to https://luis.ai and create a new intent, then train/publish your luis app.
@@ -40,12 +41,12 @@ internal int n = 0;
     [LuisIntent("AddNewStock")]
     public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
     { 
-         EntityRecommendation STOCK;
+         EntityRecommendation STOCK,share;
 
-            if (result.TryFindEntity("Equity", out STOCK))
+            if (result.TryFindEntity("Equity", out STOCK) && result.TryFindEntity("NumerShare",out share))
             {
-                STOCK.Type = "Equity";
-                        await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile."); 
+                STOCK.Type = "Destination";
+                        await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile {share.Entity}."); 
 
             }
           /*   for (int i = 0;i <= n;i++)
