@@ -24,46 +24,15 @@ public class BasicLuisDialog : LuisDialog<object>
     public async Task StockIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"Hi.You want info of stocks. "); //
-          EntityRecommendation STOCK;
-
-            if (result.TryFindEntity("Equity", out STOCK))
-            {
-            STOCK.type="Destination";
-                        try  
-                             {  
-                                  string ServiceURL = $"http://finance.yahoo.com/d/quotes.csv?s={StockSymbol}&f=sl1d1nd";  
-                                   string ResultInCSV;  
-                                    using (WebClient client = new WebClient())  
-                                     {  
-                                        ResultInCSV = await client.DownloadStringTaskAsync(ServiceURL).ConfigureAwait(false);  
-                                     }  
-                                  var FirstLine = ResultInCSV.Split('\n')[0];  
-                                  var Price = FirstLine.Split(',')[1];  
-                                   if (Price != null && Price.Length >= 0)  
-                                {  
-                                    double result;  
-                                    if (double.TryParse(Price, out result))  
-                                         { 
-                                                    await context.PostAsync($"The value is {result}. "); //
-
-                                          }  
-                                }    
-                               }  
-            catch (WebException ex)  
-            {  
-                //handle your exception here  
-                throw ex;  
-            }  
-        }
-        context.Wait(MessageReceivedAsync);
-    }
+        context.Wait(MessageReceived);
+          
     }
     
      [LuisIntent("Pleasentries")]
     public async Task HiIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"Hi.Hope you are having a great day.What can I do for you today?"); //
-        context.Wait(MessageReceivedAsync);
+        context.Wait(MessageReceived);
     }
     [LuisIntent("AddNewStock")]
     public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
@@ -76,7 +45,7 @@ public class BasicLuisDialog : LuisDialog<object>
                         await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile."); 
 
             }
-        context.Wait(MessageReceivedAsync);
+        context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
     public async Task SellStockIntent(IDialogContext context, LuisResult result)
@@ -89,13 +58,13 @@ public class BasicLuisDialog : LuisDialog<object>
                         await context.PostAsync($"Stock being sold....\n{STOCK.Entity} shares removed from profile."); 
 
             }
-        context.Wait(MessageReceivedAsync);
+        context.Wait(MessageReceived);
     }
     [LuisIntent("None")]
     public async Task NoneIntent(IDialogContext context, LuisResult result)
     {
         await context.PostAsync($"I didnt got you.Please explain clearly."); //
-        context.Wait(MessageReceivedAsync);
+        context.Wait(MessageReceived);
     }
 
 }
