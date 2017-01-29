@@ -79,7 +79,7 @@ string stockname,stocknumber;
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
-   public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
+   public async Task SellStockIntent(IDialogContext context, LuisResult result)
     { 
          EntityRecommendation STOCK2,share2;
 
