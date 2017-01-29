@@ -16,6 +16,9 @@ using Microsoft.Bot.Builder.Luis.Models;
 //my basic class
 public class BasicLuisDialog : LuisDialog<object>
 {
+internal string[] companyNames = "";
+internal int[] nshares = new Shares();
+internal int n = 0;
     public BasicLuisDialog() : base(new LuisService(new LuisModelAttribute(Utils.GetAppSetting("LuisAppId"), Utils.GetAppSetting("LuisAPIKey"))))
     {}
     // Go to https://luis.ai and create a new intent, then train/publish your luis app.
