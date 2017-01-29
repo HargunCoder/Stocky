@@ -17,7 +17,7 @@ using Microsoft.Bot.Builder.Luis.Models;
 public class BasicLuisDialog : LuisDialog<object>
 {
 internal string[] companyNames = {""};
-internal int[] nshares = new int(){};
+internal int[] nshares = new int[]{};
 internal int n = 0;
     public BasicLuisDialog() : base(new LuisService(new LuisModelAttribute(Utils.GetAppSetting("LuisAppId"), Utils.GetAppSetting("LuisAPIKey"))))
     {}
