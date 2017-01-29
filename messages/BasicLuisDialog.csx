@@ -81,15 +81,15 @@ string stockname,stocknumber;
     [LuisIntent("SellStock")]
    public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
     { 
-         EntityRecommendation STOCK,share;
+         EntityRecommendation STOCK2,share2;
 
-            if (result.TryFindEntity("Equity", out STOCK) && result.TryFindEntity("NumerShare",out share))
+            if (result.TryFindEntity("Equity", out STOCK2) && result.TryFindEntity("NumerShare",out share2))
             {
-                STOCK.Type = "Destination";
-		share.Type= "Destination";
-                 stockname= STOCK.Entity;
-		 stocknumber=share.Entity;
-		 await context.PostAsync($"Stock being sold....\n {share.Entity} shares of {STOCK.Entity} removed from profile."); 
+                STOCK2.Type = "Destination";
+		share2.Type= "Destination";
+                 stockname= STOCK2.Entity;
+		 stocknumber=share2.Entity;
+		 await context.PostAsync($"Stock being sold....\n {share2.Entity} shares of {STOCK2.Entity} removed from profile."); 
 }
         context.Wait(MessageReceived);
     }
