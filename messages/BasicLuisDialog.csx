@@ -44,10 +44,28 @@ internal int n = 0;
 
             if (result.TryFindEntity("Equity", out STOCK))
             {
-                STOCK.Type = "Destination";
+                STOCK.Type = "Equity";
                         await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile."); 
 
             }
+             for (int i = 0;i <= n;i++)
+ {
+ if ({Stock.Entity}.Equals(companyNames[i]))
+ {
+    result.TryFindEntity("NumShares", out numberShares)
+	numberShares.Type="NumShares";
+    nshares[i] += numberShares;
+ }
+ else
+ {
+    result.TryFindEntity("NumShares", out numberShares)
+	numberShares.Type="NumShares";
+    
+	nshares[n] = numberShares;
+	companyNames[n] = entityName;
+	n++;
+ }
+ }
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
