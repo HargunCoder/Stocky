@@ -50,15 +50,19 @@ internal int n = 0;
             }
              for (int i = 0;i <= n;i++)
  {
+ EntityRecommendation STOCK;
+
+            result.TryFindEntity("Equity", out STOCK);
+                STOCK.Type = "Equity";
  if ((Stock.Entity).Equals(companyNames[i]))
  {
-    result.TryFindEntity("NumShares", out numberShares)
+    result.TryFindEntity("NumShares", out numberShares);
 	numberShares.Type="NumShares";
     nshares[i] += numberShares;
  }
  else
  {
-    result.TryFindEntity("NumShares", out numberShares)
+    result.TryFindEntity("NumShares", out numberShares);
 	numberShares.Type="NumShares";
     
 	nshares[n] = numberShares;
