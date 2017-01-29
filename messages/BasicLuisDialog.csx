@@ -50,7 +50,7 @@ internal int n = 0;
             }
              for (int i = 0;i <= n;i++)
  {
- if ({Stock.Entity}.Equals(companyNames[i]))
+ if ((Stock.Entity).Equals(companyNames[i]))
  {
     result.TryFindEntity("NumShares", out numberShares)
 	numberShares.Type="NumShares";
