@@ -90,7 +90,7 @@ string stockname,stocknumber;
                  stockname= STOCK.Entity;
 		 stocknumber=share.Entity;
 		 await context.PostAsync($"Stock being sold....\n {share.Entity} shares of {STOCK.Entity} removed from profile."); 
-
+}
         context.Wait(MessageReceived);
     }
     [LuisIntent("None")]
