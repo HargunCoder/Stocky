@@ -28,9 +28,7 @@ public class BasicLuisDialog : LuisDialog<object>
 
             if (result.TryFindEntity("Equity", out STOCK))
             {
-              public static async Task<string?> GetStockRateAsync(string STOCK)  
-                    {  
-                         try  
+                        try  
                              {  
                                   string ServiceURL = $"http://finance.yahoo.com/d/quotes.csv?s={StockSymbol}&f=sl1d1nd";  
                                    string ResultInCSV;  
@@ -44,11 +42,11 @@ public class BasicLuisDialog : LuisDialog<object>
                                 {  
                                     double result;  
                                     if (double.TryParse(Price, out result))  
-                                         {  
-                                            return result;  
+                                         { 
+                                                    await context.PostAsync($"The value is {result}. "); //
+
                                           }  
-                                }  
-                              return null;  
+                                }    
                                }  
             catch (WebException ex)  
             {  
