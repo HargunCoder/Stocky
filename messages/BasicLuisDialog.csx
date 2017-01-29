@@ -50,32 +50,20 @@ string stockname,stocknumber;
                  stockname= STOCK.Entity;
 		 stocknumber=share.Entity;
 		 await context.PostAsync($"Stock being bought....\n {share.Entity} shares of {STOCK.Entity} added to profile."); 
-
-
-
-            }
-          /*   for (int i = 0;i <= n;i++)
- {
- EntityRecommendation STOCK;
-
-            result.TryFindEntity("Equity", out STOCK);
-                STOCK.Type = "Equity";
- if ((Stock.Entity).Equals(companyNames[i]))
- {
-    result.TryFindEntity("NumShares", out numberShares);
-	numberShares.Type="NumShares";
-    nshares[i] += numberShares;
- }
+                 for (int i = 0;i < n;i++)
+ 			{
+ 				 if (public static int Compare(string stockname, string )==0)
+					{
+				 
+ 						   nshares[i] += stocknumber;
+ 					}
  else
  {
-    result.TryFindEntity("NumShares", out numberShares);
-	numberShares.Type="NumShares";
-    
-	nshares[n] = numberShares;
-	companyNames[n] = entityName;
+	nshares[n] = stocknumber;
+	companyNames[n] = stockname;
 	n++;
  }
- }*/
+ }
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
