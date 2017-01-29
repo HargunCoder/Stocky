@@ -46,8 +46,8 @@ string stockname,stocknumber;
             if (result.TryFindEntity("Equity", out STOCK) && result.TryFindEntity("NumerShare",out share))
             {
                 STOCK.Type = "Destination";
-                 stockname= {STOCK.Entity};
-		 stoctype={share.Entity};
+                 stockname= STOCK.Entity;
+		 stoctype=share.Entity;
 		 await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile {share.Entity}."); 
 
 
