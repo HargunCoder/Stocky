@@ -28,6 +28,7 @@ public class BasicLuisDialog : LuisDialog<object>
 
             if (result.TryFindEntity("Equity", out STOCK))
             {
+            STOCK.type="Destination";
                         try  
                              {  
                                   string ServiceURL = $"http://finance.yahoo.com/d/quotes.csv?s={StockSymbol}&f=sl1d1nd";  
