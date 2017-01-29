@@ -49,10 +49,8 @@ string stockname,stocknumber;
 		share.Type= "Destination";
                  stockname= STOCK.Entity;
 		 stocknumber=share.Entity;
-		 await context.PostAsync($"Stock being bought....\n{STOCK.Entity} shares added to profile {share.Entity}."); 
+		 await context.PostAsync($"Stock being bought....\n {share.Entity} shares of {STOCK.Entity} added to profile."); 
 
-await context.PostAsync($"{stockname}");
-await context.PostAsync($"{stocknumber}");
 
 
             }
@@ -81,16 +79,18 @@ await context.PostAsync($"{stocknumber}");
         context.Wait(MessageReceived);
     }
     [LuisIntent("SellStock")]
-    public async Task SellStockIntent(IDialogContext context, LuisResult result)
-    {
-       EntityRecommendation STOCK;
+   public async Task AddNewStockIntent(IDialogContext context, LuisResult result)
+    { 
+         EntityRecommendation STOCK,share;
 
-            if (result.TryFindEntity("Equity", out STOCK))
+            if (result.TryFindEntity("Equity", out STOCK) && result.TryFindEntity("NumerShare",out share))
             {
                 STOCK.Type = "Destination";
-                        await context.PostAsync($"Stock being sold....\n{STOCK.Entity} shares removed from profile."); 
+		share.Type= "Destination";
+                 stockname= STOCK.Entity;
+		 stocknumber=share.Entity;
+		 await context.PostAsync($"Stock being sold....\n {share.Entity} shares of {STOCK.Entity} removed from profile."); 
 
-            }
         context.Wait(MessageReceived);
     }
     [LuisIntent("None")]
