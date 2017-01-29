@@ -52,7 +52,7 @@ string stockname,stocknumber;
 		 await context.PostAsync($"Stock being bought....\n {share.Entity} shares of {STOCK.Entity} added to profile."); 
                  for (int i = 0;i < n;i++)
  			{
- 				 if (public static int Compare(string stockname, string )==0)
+ 				 if ((static int Compare(string stockname, string )==0)
 					{
 				 
  						   nshares[i] += stocknumber;
